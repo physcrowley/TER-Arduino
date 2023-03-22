@@ -8,7 +8,7 @@
  * Modification par : M. Crowley, 2023-03
  */
 
-// Macros for storing whisker data to improve code readibility
+// Variables and functions for storing whisker data to improve code readibility
 int leftWhisker = 7;
 int rightWhisker = 5;
 int rightWhiskerState() {
@@ -20,7 +20,7 @@ int leftWhiskerState() {
 int pressed = 0;
 int released = 1;
 
-// Macros for storing speaker port
+// Variable for storing speaker port
 int speakerPort = 4;
 
 void setup()                                 // Built-in setup() initialization function runs once
