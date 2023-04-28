@@ -124,14 +124,14 @@ void moveToTarget() {
   }
 
   // sinon, avancer vers le bloc en se centrant
-
-  if (pixy.ccc.blocks[i].m_x > centerX + offsetX) {  // si le bloc est à la droite
-    pixy.setServos(slowBackward, forward);           // tourner vers la droite
-
-  } else if (pixy.ccc.blocks[i].m_x < centerX - offsetX) {  // sinon si le bloc est à la gauche
-    pixy.setServos(backward, slowForward);                  // tourner vers la gauche
-
-  } else {  // sinon aller droit devant
+  if (pixy.ccc.blocks[i].m_x > centerX + offsetX) {  
+    // si le bloc est à la droite
+    pixy.setServos(slowBackward, forward); // tourner vers la droite
+  } else if (pixy.ccc.blocks[i].m_x < centerX - offsetX) { 
+    // sinon si le bloc est à la gauche
+    pixy.setServos(backward, slowForward); // tourner vers la gauche
+  } else {  
+    // sinon aller droit devant
     pixy.setServos(backward, forward);
   }
 }
@@ -151,7 +151,6 @@ void noTargetFound() {
   noTone(piezo);
   currentState = END;
 }
-
 
 /**********************************************
  * IMPLÉMENTATION DE LA MACHINE À ÉTATS FINIS
