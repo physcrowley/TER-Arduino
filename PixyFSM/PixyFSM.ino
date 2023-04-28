@@ -11,7 +11,7 @@ Pixy2 pixy;
 #define backward 590
 #define slowBackward 510
 #define stopServo 500
-#define centerX 0
+#define centerX 160
 #define offsetX 20
 
 #define piezo 4
@@ -36,11 +36,18 @@ int timer;
 int target;
 #define stopWidth 200  // largeur de la signature
 
+// pour initialiser le matériel du robot
+void initialiseShieldBot() {
+  pixy.init();
+  pinMode(leftWhisker, INPUT);
+  pinMode(rightWhisker, INPUT);
+}
 
 void setup() {
-  pixy.init();
+  initialiseShieldBot();
   currentState = SET_TARGET;
-  timer = 10000;  // 10 secondes
+  timer = 10000;           // 10 secondes
+  tone(piezo, 800, 1000);  // ton qui signale que le programme est prêt
 }
 
 /**********************************************
@@ -55,16 +62,18 @@ void loop() {
   if (currentState == SET_TARGET) {
 
     // attendre que le bouton gauche soit pressé avant de capter la signature
-    while (leftWhisker != pressed) {
+    while (digitalRead(leftWhisker) != pressed) {
       delay(20);
     }
     pixy.ccc.getBlocks();
     target = pixy.ccc.blocks[0].m_signature;
+    tone(piezo, 800, 200);  // ton de confirmation
 
     // attendre que le bouton droit soit pressé avant de passer au prochain état
-    while (rightWhisker != pressed) {
+    while (digitalRead(rightWhisker) != pressed) {
       delay(20);
     }
+    tone(piezo, 800, 200);  // ton de confirmation
     currentState = FIND_TARGET;
 
   } else if (currentState == FIND_TARGET) {
@@ -87,14 +96,14 @@ void loop() {
 
       // si la cible est en vu, changer d'état
       if (targetFound) {
+        tone(piezo, 800, 200);  // ton de confirmation
         currentState = MOVE_TO_TARGET;
 
       } else {
         // sinon pivoter quelques degrés vers la gauche et mettre à jour le décompte
-        int dt = 100;
-        pixy.setServos(slowForward, slowBackward);
+        int dt = 20;
+        pixy.setServos(forward, forward);
         delay(dt);
-        pixy.setServos(stopServo, stopServo);
         timer -= dt;
       }
     }
@@ -116,34 +125,32 @@ void loop() {
 
     // si la largeur de la cible est plus grande que la valeur limite, on a fini
     if (visibleWidth >= stopWidth) {
-      pixy.setServos(stopServo, stopServo);
       currentState = PARKED;
 
     } else {  // sinon, avancer vers le bloc en se centrant
-
-      if (pixy.ccc.blocks[i].m_x > centerX + offsetX) {  // si le bloc est à la droite
-        pixy.setServos(slowBackward, forward);           // tourner vers la droite
-
-      } else if (pixy.ccc.blocks[i].m_x < centerX - offsetX) {  // sinon si le bloc est à la gauche
-        pixy.setServos(backward, slowForward);                  // tourner vers la gauche
-
-      } else {  // sinon aller droit devant
+      
+      if (pixy.ccc.blocks[i].m_x > centerX + offsetX) {
+        // si le bloc est à la droite
+        pixy.setServos(backward, slowForward);  // tourner vers la droite
+      } else if (pixy.ccc.blocks[i].m_x < centerX - offsetX) {
+        // sinon si le bloc est à la gauche
+        pixy.setServos(slowBackward, forward);  // tourner vers la gauche
+      } else {
+        // sinon aller droit devant
         pixy.setServos(backward, forward);
       }
     }
 
   } else if (currentState == PARKED) {
 
-    tone(piezo, 800);  // ton de succès
-    delay(1000);
-    noTone(piezo);
+    tone(piezo, 800, 1000);  // ton de succès
+    pixy.setServos(stopServo, stopServo);
     currentState = END;
 
   } else if (currentState == NO_TARGET_FOUND) {
 
-    tone(piezo, 400);  // ton d'erreur
-    delay(1000);
-    noTone(piezo);
+    tone(piezo, 400, 1000);  // ton d'erreur
+    pixy.setServos(stopServo, stopServo);
     currentState = END;
 
   } else if (currentState == END) {
