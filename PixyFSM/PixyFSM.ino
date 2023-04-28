@@ -14,7 +14,7 @@ Pixy2 pixy;
 #define centerX 0
 #define offsetX 20
 
-#define piezo 3
+#define piezo 4
 
 #define leftWhisker 5
 #define rightWhisker 7
