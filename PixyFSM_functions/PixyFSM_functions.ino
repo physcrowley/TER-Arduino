@@ -69,34 +69,35 @@ void setTarget() {
 
 // pour l'état FIND_TARGET
 void findTarget() {
+
   // si le temps est écoulé sans détection de signature
   if (timer <= 0) {
     currentState = NO_TARGET_FOUND;
+    return;  // mettre immédiatement fin à la fonction
+  }
+
+  // sinon on cherche encore un bloc avec la signature cible
+
+  // obtenir les blocs visibles
+  pixy.ccc.getBlocks();
+
+  // vérifier si la signature cible est dans les blocs détectés
+  bool targetFound = false;
+  for (int i = 0; i < pixy.ccc.numBlocks; i++) {
+    if (pixy.ccc.blocks[i].m_signature == target) targetFound = true;
+  }
+
+  // si la cible est en vu, changer d'état
+  if (targetFound) {
+    currentState = MOVE_TO_TARGET;
 
   } else {
-    // sinon on cherche encore un bloc avec la signature cible
-
-    // obtenir les blocs visibles
-    pixy.ccc.getBlocks();
-
-    // vérifier si la signature cible est dans les blocs détectés
-    bool targetFound = false;
-    for (int i = 0; i < pixy.ccc.numBlocks; i++) {
-      if (pixy.ccc.blocks[i].m_signature == target) targetFound = true;
-    }
-
-    // si la cible est en vu, changer d'état
-    if (targetFound) {
-      currentState = MOVE_TO_TARGET;
-
-    } else {
-      // sinon pivoter quelques degrés vers la gauche et mettre à jour le décompte
-      int dt = 100;
-      pixy.setServos(slowForward, slowBackward);
-      delay(dt);
-      pixy.setServos(stopServo, stopServo);
-      timer -= dt;
-    }
+    // sinon pivoter quelques degrés vers la gauche et mettre à jour le décompte
+    int dt = 100;
+    pixy.setServos(slowForward, slowBackward);
+    delay(dt);
+    pixy.setServos(stopServo, stopServo);
+    timer -= dt;
   }
 }
 
@@ -119,18 +120,19 @@ void moveToTarget() {
   if (visibleWidth >= stopWidth) {
     pixy.setServos(stopServo, stopServo);
     currentState = PARKED;
+    return;  // mettre immédiatement fin à la fonction
+  }
 
-  } else {  // sinon, avancer vers le bloc en se centrant
+  // sinon, avancer vers le bloc en se centrant
 
-    if (pixy.ccc.blocks[i].m_x > centerX + offsetX) {  // si le bloc est à la droite
-      pixy.setServos(slowBackward, forward);           // tourner vers la droite
+  if (pixy.ccc.blocks[i].m_x > centerX + offsetX) {  // si le bloc est à la droite
+    pixy.setServos(slowBackward, forward);           // tourner vers la droite
 
-    } else if (pixy.ccc.blocks[i].m_x < centerX - offsetX) {  // sinon si le bloc est à la gauche
-      pixy.setServos(backward, slowForward);                  // tourner vers la gauche
+  } else if (pixy.ccc.blocks[i].m_x < centerX - offsetX) {  // sinon si le bloc est à la gauche
+    pixy.setServos(backward, slowForward);                  // tourner vers la gauche
 
-    } else {  // sinon aller droit devant
-      pixy.setServos(backward, forward);
-    }
+  } else {  // sinon aller droit devant
+    pixy.setServos(backward, forward);
   }
 }
 
