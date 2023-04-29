@@ -12,6 +12,9 @@ automatiquement reflété dans le document lié et éliminer l'erreur
 d'avoir des versions différentes dans le code source et sur le site
 public.
 
+> Par contre, il faut cliquer sur les liens une fois pour enclencher
+> une mise à jour du contenu associé au symlink...
+
 ******************************
 * Sauf les archives zip
 ******************************
