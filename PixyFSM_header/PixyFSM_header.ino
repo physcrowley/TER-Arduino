@@ -6,7 +6,7 @@ void setup() {
   initialiseShieldBot(); // déclaré dans ShieldBot.h
   currentState = SET_TARGET;
   timer = 10000;  // 10 secondes
-  tone(piezo, 1000, 1000); // ton qui signale que le programme est prêt
+  tone(piezo, 800, 1000); // ton qui signale que le programme est prêt
 }
 
 /**********************************************
