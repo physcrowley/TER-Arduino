@@ -28,9 +28,9 @@ _Source : [Software Foundations with Arduino (Shieldbot) de CS2N](https://www.cs
 
 ## Exemple de Machine à états finis
 
-Cet exemple est pour la caméra Pixy2, des moustaches tactiles et un haut-parleur piezoélectrique, comme dans [le défi proposé dans l'activité _Camera Programming with Arduino (Shieldbot)_](https://www.cs2n.org/u/mp/badge_pages/233). Le code implémente le diagramme d'états présenté dans les [notes de cours de M. Crowley](https://docs.google.com/document/d/1LxZwPFYOOgUi6hL9_VkzVpgnHcKnO2U3EskbVziUh4s/view) en modularisant les instructions de trois façons différentes.
+Cet exemple est pour la caméra Pixy2, des moustaches tactiles et un haut-parleur piezoélectrique, comme pour [le défi proposé dans l'activité _Camera Programming with Arduino (Shieldbot)_](https://www.cs2n.org/u/mp/badge_pages/233). Le code implémente le diagramme d'états dans les [notes de cours de M. Crowley](https://docs.google.com/document/d/1LxZwPFYOOgUi6hL9_VkzVpgnHcKnO2U3EskbVziUh4s/view) en modularisant les instructions de trois façons différentes.
 
 - [PixyFSM](./arduinoide/PixyFSM/PixyFSM.ino) (`.ino`) - code de base, purement procédural
 - [PixyFSM_functions](./arduinoide/PixyFSM_functions/PixyFSM_functions.ino) (`.ino`)- code découpé en fonctions
 - [PixyFSM_header pour Arduino IDE](./arduinoide/PixyFSM_header.zip) (`.zip`) - code déclarant une classe (dans un fichier `.h`) pour les constantes et les fonctions du robot
-- [PixyFSM_header pour PlatformIO](./platformio/PixyFSM_header_pio.zip) (`.zip`) - même code que ci-dessus, mais pour PlatformIO
+- [PixyFSM_header pour PlatformIO](./platformio/PixyFSM_header_pio.zip) (`.zip`) - même code que ci-dessus, mais pour PlatformIO. Le fichier `.h` est dans le dossier `include` et le fichier `.cpp` est dans le dossier `src`.
