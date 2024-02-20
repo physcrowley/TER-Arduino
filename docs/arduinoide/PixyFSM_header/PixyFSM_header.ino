@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "ShieldBot.h" // déclarations réutilisables
 
 // variables globales déclarées dans ShieldBot.h
