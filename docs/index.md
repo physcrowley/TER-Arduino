@@ -6,8 +6,8 @@ Les exemples sont en format `.zip` ou `.ino` pour Arduino IDE et en format `.zip
 
 ## Programme d'initiation classique : Blink
 
-* [Pour Arduino IDE](./arduinoide/blink/blink.ino) (`.zip`)
-* [Pour PlatformIO](./platformio/blink-pio.zip) (`.zip`)
+* [Clignoter pour Arduino IDE](./arduinoide/blink/blink.ino) (`.zip`)
+* [Clignoter pour PlatformIO](./platformio/blink-pio.zip) (`.zip`)
 
 ## Lié aux activités sur le site de M. Crowley
 Source : [https://physcrowley.github.io/Robotique](https://physcrowley.github.io/Robotique)
@@ -17,8 +17,8 @@ Source : [https://physcrowley.github.io/Robotique](https://physcrowley.github.io
 
 Utilise la bibliothèque `Servo.h` pour contrôler un servomoteur. Définit des fonctions pour le mouvement dans les deux sens et pour le retour à la position neutre ou l'arrêt. Vous devrez ajuster les valeurs de la durrée des impulsions selon le servomoteur que vous utilisez.
 
-- [Blink pour Arduino IDE](./arduinoide/servo-test.zip) (`.zip`)
-- [Blink pour PlatformIO](./platformio/servo-test-pio.zip) (`.zip`)
+- [Servo-test pour Arduino IDE](./arduinoide/servo-test.zip) (`.zip`)
+- [Servo-test pour PlatformIO](./platformio/servo-test-pio.zip) (`.zip`)
 
 ## Software Foundations with Arduino (Shieldbot) de CS2N
 
